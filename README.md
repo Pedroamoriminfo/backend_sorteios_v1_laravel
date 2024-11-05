@@ -1,66 +1,131 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# API de Estatísticas e Previsão de Jogos de Loteria
 
-## About Laravel
+Este projeto é uma API desenvolvida em **Laravel** que consome dados da loteria para gerar estatísticas e prever combinações de números com maior probabilidade de ocorrência. A API oferece informações sobre resultados passados, previsões e cálculo de probabilidades, ajudando usuários a criar jogos de forma mais estratégica.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Funcionalidades
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Histórico de Resultados**: Consulta e exibe resultados passados para análise.
+- **Previsão de Números**: Algoritmos estatísticos para sugerir combinações com alta chance de ocorrência.
+- **Cálculo de Probabilidade**: Retorna a probabilidade de uma combinação de números escolhida vencer.
+- **Sugestões de Jogos**: Com base em padrões estatísticos, sugere números promissores.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tecnologias Utilizadas
 
-## Learning Laravel
+- **Laravel**: Framework PHP para desenvolvimento backend.
+- **MySQL**: Banco de dados para armazenamento de informações históricas de jogos.
+- **Algoritmos Estatísticos**: Para cálculos de previsão e probabilidades.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Configuração e Instalação
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Clone o repositório**:
+   ```bash
+   git clone https://github.com/Pedroamoriminfo/backend_sorteios_v1_laravel.git
+   ```
+   
+2. **Instale as dependências**:
+   ```bash
+   composer install
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Configuração do Ambiente**:
+   - Duplique o arquivo `.env.example` e renomeie para `.env`.
+   - Configure as variáveis de ambiente, incluindo detalhes do banco de dados.
 
-## Laravel Sponsors
+4. **Gere a chave da aplicação**:
+   ```bash
+   php artisan key:generate
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+5. **Execute as migrações e seeders para o banco de dados**:
+   ```bash
+   php artisan migrate --seed
+   ```
 
-### Premium Partners
+6. **Inicie o servidor local**:
+   ```bash
+   php artisan serve
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+A API estará disponível em `http://localhost:8000`.
 
-## Contributing
+## Endpoints
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Histórico de Resultados
 
-## Code of Conduct
+- **Rota**: `/api/historico`
+- **Método**: GET
+- **Descrição**: Retorna o histórico de resultados de jogos de loteria.
+- **Resposta Exemplo**:
+    ```json
+    {
+      "data": [
+        {"data": "2024-11-01", "numeros": [3, 12, 24, 32, 40, 55]}
+      ]
+    }
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Previsão de Números
 
-## Security Vulnerabilities
+- **Rota**: `/api/previsao`
+- **Método**: GET
+- **Descrição**: Retorna números com maior probabilidade de serem sorteados.
+- **Resposta Exemplo**:
+    ```json
+    {
+      "previsao": [3, 15, 27, 36, 44, 58]
+    }
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3. Probabilidade de Jogo
 
-## License
+- **Rota**: `/api/probabilidade`
+- **Método**: POST
+- **Descrição**: Calcula a probabilidade de um conjunto de números vencer.
+- **Parâmetros**:
+    - `numeros` (array): Lista de números para o cálculo.
+- **Corpo Exemplo**:
+    ```json
+    {
+      "numeros": [3, 15, 27, 36, 44, 58]
+    }
+    ```
+- **Resposta Exemplo**:
+    ```json
+    {
+      "probabilidade": "0.0004%"
+    }
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Exemplos de Uso
+
+### Obter histórico de resultados
+```bash
+curl -X GET http://localhost:8000/api/historico
+```
+
+### Obter previsão de números
+```bash
+curl -X GET http://localhost:8000/api/previsao
+```
+
+### Calcular probabilidade de um jogo
+```bash
+curl -X POST http://localhost:8000/api/probabilidade -H "Content-Type: application/json" -d '{"numeros": [3, 15, 27, 36, 44, 58]}'
+```
+
+## Testes
+
+Para executar os testes automatizados:
+
+```bash
+php artisan test
+```
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.
+
+---
+
+**Desenvolvido por Pedro Amorim**
